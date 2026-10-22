@@ -1,0 +1,182 @@
+{
+  "inventory": {
+    "reply": "The Morse 1/4 Zip is $72.00. It\u2019s sold out in L, but M is in stock with 8 available\u2014groovy choice!",
+    "db": {
+      "name": "Morse 1 4 Zip",
+      "price": 72.0,
+      "stock": {
+        "L": 0,
+        "M": 8,
+        "S": 2,
+        "XL": 25,
+        "XS": 15,
+        "XXL": 2
+      }
+    }
+  },
+  "search": {
+    "reply": "Here are 8 Yale hoodies to browse\u2014pullover and full-zip styles from $68.00 to $88.00. Groovy selection, and the cards show the available sizes for each.",
+    "title": "Yale hoodies",
+    "cards": [
+      {
+        "href": "/products/basic-hoodie-big-yale",
+        "name": "Basic Hoodie Big Yale",
+        "price": "$68.00"
+      },
+      {
+        "href": "/products/brooks-brothers-double-knit-full-zip-hoodie-yale",
+        "name": "Brooks Brothers Double Knit Full Zip Hoodie Yale",
+        "price": "$88.00"
+      },
+      {
+        "href": "/products/champion-full-zip-hood",
+        "name": "Champion Full Zip Hood",
+        "price": "$88.00"
+      },
+      {
+        "href": "/products/champion-reverse-weave-hoodie-1",
+        "name": "Champion Reverse Weave Hoodie 1",
+        "price": "$68.00"
+      },
+      {
+        "href": "/products/crew-left-chest-hoodie",
+        "name": "Crew Left Chest Hoodie",
+        "price": "$68.00"
+      },
+      {
+        "href": "/products/district-vit-hoodie-vintage-bulldog",
+        "name": "District Vit Hoodie Vintage Bulldog",
+        "price": "$68.00"
+      },
+      {
+        "href": "/products/district-vit-hoodie-vintage-sailor-bulldog",
+        "name": "District Vit Hoodie Vintage Sailor Bulldog",
+        "price": "$68.00"
+      },
+      {
+        "href": "/products/fencing-left-chest-hoodie",
+        "name": "Fencing Left Chest Hoodie",
+        "price": "$68.00"
+      }
+    ],
+    "db": {
+      "basic-hoodie-big-yale": {
+        "name": "Basic Hoodie Big Yale",
+        "price": 68.0,
+        "stock": {
+          "L": 8,
+          "M": 5,
+          "S": 5,
+          "XL": 2,
+          "XS": 15,
+          "XXL": 25
+        }
+      },
+      "brooks-brothers-double-knit-full-zip-hoodie-yale": {
+        "name": "Brooks Brothers Double Knit Full Zip Hoodie Yale",
+        "price": 88.0,
+        "stock": {
+          "L": 15,
+          "M": 8,
+          "S": 8,
+          "XL": 12,
+          "XS": 0,
+          "XXL": 12
+        }
+      },
+      "champion-full-zip-hood": {
+        "name": "Champion Full Zip Hood",
+        "price": 88.0,
+        "stock": {
+          "L": 5,
+          "M": 5,
+          "S": 5,
+          "XL": 8,
+          "XS": 5,
+          "XXL": 12
+        }
+      },
+      "champion-reverse-weave-hoodie-1": {
+        "name": "Champion Reverse Weave Hoodie 1",
+        "price": 68.0,
+        "stock": {
+          "L": 20,
+          "M": 20,
+          "S": 25,
+          "XL": 0,
+          "XS": 0,
+          "XXL": 15
+        }
+      },
+      "crew-left-chest-hoodie": {
+        "name": "Crew Left Chest Hoodie",
+        "price": 68.0,
+        "stock": {
+          "L": 8,
+          "M": 0,
+          "S": 12,
+          "XL": 20,
+          "XS": 20,
+          "XXL": 5
+        }
+      },
+      "district-vit-hoodie-vintage-bulldog": {
+        "name": "District Vit Hoodie Vintage Bulldog",
+        "price": 68.0,
+        "stock": {
+          "L": 15,
+          "M": 15,
+          "S": 12,
+          "XL": 15,
+          "XS": 12,
+          "XXL": 0
+        }
+      },
+      "district-vit-hoodie-vintage-sailor-bulldog": {
+        "name": "District Vit Hoodie Vintage Sailor Bulldog",
+        "price": 68.0,
+        "stock": {
+          "L": 0,
+          "M": 8,
+          "S": 25,
+          "XL": 2,
+          "XS": 8,
+          "XXL": 25
+        }
+      },
+      "fencing-left-chest-hoodie": {
+        "name": "Fencing Left Chest Hoodie",
+        "price": 68.0,
+        "stock": {
+          "L": 0,
+          "M": 15,
+          "S": 12,
+          "XL": 2,
+          "XS": 0,
+          "XXL": 0
+        }
+      }
+    },
+    "opened": {
+      "url": "http://localhost:5173/products/basic-hoodie-big-yale",
+      "title": "Basic Hoodie Big Yale"
+    }
+  },
+  "usability": {
+    "tags": [
+      "XS",
+      "S 2 left",
+      "M",
+      "L Sold out",
+      "XL",
+      "XXL 2 left"
+    ],
+    "stock_msg": "Hurry, only 2 left in size S!",
+    "also_like": [
+      "Berkeley 1 4 Zip",
+      "Trumbull 1 4 Zip",
+      "Benjamin Franklin 1 4 Zip",
+      "Branford 1 4 Zip"
+    ]
+  }
+}

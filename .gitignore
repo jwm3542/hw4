@@ -1,0 +1,23 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+
+# Assignment rule: do not commit the database or product images.
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/
+**/products/
+**/images/
+*.jpg
+*.jpeg
+*.png
+*.webp
+!frontend/public/*.svg
+*.zip
+
+# Problem 11 evidence screenshots must be committed
+!output/app_check_images/
+!output/app_check_images/*.png

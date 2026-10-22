@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Customs: App Check (Problem 11)</title>
+<style>
+  :root { --yale: #00356b; --navy: #0f2a4a; --paper: #f6eedb; --cream: #fffaf0; --wood: #3b2416; --brass: #b8862b; --ok: #1e7a3c; --line: #d9cba6; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: #1e2533; font: 16px/1.55 Georgia, 'Times New Roman', serif; }
+  header { background: linear-gradient(180deg, #5a3822, var(--wood)); color: #f6e7c8; border-bottom: 4px solid var(--brass); padding: 28px 20px; }
+  header .in, main { max-width: 1100px; margin: 0 auto; }
+  header h1 { margin: 0 0 6px; color: #e2b75a; font-size: 2rem; }
+  header p { margin: 0; color: #e9d7b4; }
+  main { padding: 24px 20px 60px; }
+  nav.toc { background: var(--cream); border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; margin-bottom: 28px; }
+  nav.toc ol { margin: 6px 0 0; padding-left: 22px; }
+  section.check { background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; margin-bottom: 32px; box-shadow: 0 8px 18px rgba(59,36,22,.08); }
+  h2 { color: var(--navy); margin: 0 0 4px; font-size: 1.55rem; }
+  .pass { display: inline-block; background: var(--ok); color: #fff; font: 700 .8rem/1 Arial, sans-serif; letter-spacing: .06em; padding: 5px 10px; border-radius: 999px; vertical-align: middle; margin-left: 8px; }
+  .ask { font-family: Arial, sans-serif; font-size: .95rem; color: #5b5446; margin: 0 0 14px; }
+  figure { margin: 18px 0 8px; }
+  figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 16px rgba(0,0,0,.12); background: #fff; }
+  figcaption { margin-top: 10px; font-size: 1rem; }
+  figcaption strong { color: var(--navy); }
+  .pair { display: grid; grid-template-columns: 380px 1fr; gap: 22px; align-items: start; }
+  table { border-collapse: collapse; font-family: Arial, sans-serif; font-size: .9rem; margin-top: 10px; }
+  th, td { border: 1px solid var(--line); padding: 5px 10px; text-align: center; }
+  th { background: #efe3c4; color: var(--navy); }
+  td.out { color: #b42318; font-weight: 700; }
+  code { background: #efe3c4; padding: 1px 5px; border-radius: 4px; font-size: .9em; }
+  footer { text-align: center; color: #5b5446; font-size: .9rem; }
+  @media (max-width: 800px) { .pair { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <h1>Campus Customs: Live App Check</h1>
+    <p>Problem 11 · Screenshots taken from the running site (React front end at <code>localhost:5173</code>, FastAPI + PydanticAI agent at <code>localhost:8000</code>) on 2026-10-21. All numbers were cross-checked against <code>data/campus_customs.db</code>.</p>
+  </div>
+</header>
+
+<main>
+  <nav class="toc" aria-label="Checks">
+    <strong>Checks</strong>
+    <ol>
+      <li><a href="#check-1">Chat checks an item's inventory (honest stock and price from the DB)</a></li>
+      <li><a href="#check-2">Category question puts search-result cards on the page (hoodies)</a></li>
+      <li><a href="#check-3">Problem 9 usability feature: low-stock badges + size guide (plus "You may also like")</a></li>
+    </ol>
+  </nav>
+
+  <!-- ===================================================== 1 -->
+  <section class="check" id="check-1">
+    <h2>1. Chat checks inventory for an item <span class="pass">PASS</span></h2>
+    <p class="ask">On the Morse 1/4 Zip product page, the shopper asked: <em>"How much is this one, and is it in stock in L? What about M?"</em></p>
+    <div class="pair">
+      <figure>
+        <img src="app_check_images/inventory.png" alt="Chat panel: the clerk answers that the Morse 1/4 Zip is $72.00, sold out in L, and M is in stock with 8 available.">
+        <figcaption><strong>The chat's answer:</strong> "$72.00. It's sold out in L, but M is in stock with 8 available."</figcaption>
+      </figure>
+      <figure>
+        <img src="app_check_images/inventory_page.png" alt="Morse 1/4 Zip product page showing $72.00 and a stock table: XS 15, S 2, M 8, L sold out, XL 25, XXL 2.">
+        <figcaption><strong>The same item's product page</strong> (stock table read straight from the DB).</figcaption>
+      </figure>
+    </div>
+    <table aria-label="Database values for morse-1-4-zip">
+      <tr><th>DB: <code>morse-1-4-zip</code></th><th>Price</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+      <tr><td>catalogue / inventory</td><td>$72.00</td><td>15</td><td>2</td><td><strong>8</strong></td><td class="out">0</td><td>25</td><td>2</td></tr>
+    </table>
+    <p><strong>What this proves:</strong> the agent used page context to know which item "this" meant, called its stock tools, and reported the exact database price ($72.00) and quantities. It said clearly that L is sold out (0) and that M has exactly 8, with nothing invented.</p>
+  </section>
+
+  <!-- ===================================================== 2 -->
+  <section class="check" id="check-2">
+    <h2>2. Category question puts matching product cards on the page <span class="pass">PASS</span></h2>
+    <p class="ask">On the Home page, the shopper asked the chat: <em>"What hoodies do you have?"</em></p>
+    <figure>
+      <img src="app_check_images/search_cards.png" alt="A blue 'Yale hoodies' shelf with 8 product cards (photos, names, prices on hang tags) appears at the top of the page next to the chat reply.">
+      <figcaption><strong>The page updated itself:</strong> a "Yale hoodies" shelf ("The clerk pulled these from the back room") dropped in with <strong>8 hoodie cards</strong>, each with its photo, name, short description and price. The chat summarized them ("8 Yale hoodies… from $68.00 to $88.00").</figcaption>
+    </figure>
+    <figure>
+      <img src="app_check_images/search_card_opens.png" alt="After clicking the first chat card, the Basic Hoodie Big Yale product page opens with a large image and full details.">
+      <figcaption><strong>The chat-placed cards still work like normal cards:</strong> clicking "Basic Hoodie Big Yale" opened its full product page (<code>/products/basic-hoodie-big-yale</code>) with the large image, price, description and stock by size.</figcaption>
+    </figure>
+    <p><strong>What this proves:</strong> the agent searched the catalogue and returned structured <code>product_ids</code>. The API turned them into cards from the DB, and the front end rendered them on the page. All 8 card prices matched the <code>catalogue</code> table ($68 ×6, $88 ×2), and the cards link to the Problem 3 product pages.</p>
+  </section>
+
+  <!-- ===================================================== 3 -->
+  <section class="check" id="check-3">
+    <h2>3. Usability feature from Problem 9: low-stock badges + size guide <span class="pass">PASS</span></h2>
+    <p class="ask">On the Morse 1/4 Zip product page, the shopper clicked size <strong>S</strong>, then the "📏 Size guide" link.</p>
+    <figure>
+      <img src="app_check_images/usability_badges.png" alt="Size buttons with tags: S '2 left', L 'Sold out' (disabled), XXL '2 left'; message 'Hurry, only 2 left in size S!'">
+      <figcaption><strong>Low-stock badges:</strong> sizes show <strong>"2 left"</strong> under S and XXL and <strong>"Sold out"</strong> under L (disabled). Choosing S shows <strong>"Hurry, only 2 left in size S!"</strong> These match the DB exactly (S 2, L 0, XXL 2).</figcaption>
+    </figure>
+    <figure>
+      <img src="app_check_images/usability_size_guide.png" alt="Size guide pop-up with a chest, waist and body length chart for XS to XXL over a dimmed page.">
+      <figcaption><strong>Size guide:</strong> a pop-up chart (chest, waist and body length for XS–XXL) with fit advice, so shoppers can pick the right size without leaving the page.</figcaption>
+    </figure>
+    <figure>
+      <img src="app_check_images/usability_also_like.png" alt="'You may also like' row with four in-stock quarter-zips: Berkeley, Trumbull, Benjamin Franklin and Branford.">
+      <figcaption><strong>Bonus, also from Problem 9:</strong> "You may also like" shows 4 similar <em>in-stock</em> quarter-zips (Berkeley, Trumbull, Benjamin Franklin, Branford). It's powered by the same matching as the agent's new <code>find_alternatives</code> tool.</figcaption>
+    </figure>
+    <p><strong>What this proves:</strong> the Problem 9 front-end features are live in the running app. They show honest, DB-driven urgency and help shoppers pick the right size, which means fewer wrong-size returns.</p>
+  </section>
+
+  <footer>Campus Customs · HW 4 · MGT 409E. Screenshots: <code>output/app_check_images/</code></footer>
+</main>
+</body>
+</html>
